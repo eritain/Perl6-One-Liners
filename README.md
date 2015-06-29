@@ -197,12 +197,8 @@ Print the number of empty lines in a file
     perl6 -e 'lines.grep(/\s/).elems.say' example.txt
 
 
-CALCULATIONS
+TABULAR DATA
 ------------
-
-Check if a number is a prime
-
-    perl6 -e 'say "7 is prime" if 7.Int.is-prime'
 
 Print the sum of all the fields on a line
 
@@ -248,35 +244,23 @@ Find the total number of elements on each line, split on a comma
 
     perl6 -ne '.split(",").elems.say' example.txt
 
-Find the total number of fields (words) on all lines
+Find the total number of fields or words on all lines
 
-    perl6 -e 'say lines.split("\t").elems' #fields
-    perl6 -e 'say lines.words.elems' example.txt #words
+    perl6 -e 'say lines.split("\t").elems' example.txt   # fields
+    perl6 -e 'say lines.words.elems' example.txt   # words
 
-Print the total number of fields that match a pattern
+Print the total number of fields or words that match a pattern
 
-    perl6 -e 'say lines.split("\t").comb(/pattern/).elems' #fields
-    perl6 -e 'say lines.words.comb(/pattern/).elems' #words
+    perl6 -e 'say lines.split("\t").comb(/pattern/).elems' example.txt   # fields
+    perl6 -e 'say lines.words.comb(/pattern/).elems' example.txt   # words
 
 Print the total number of lines that match a pattern
 
-    perl6 -e 'say lines.grep(/in/).elems'
+    perl6 -e 'say lines.grep(/in/).elems' example.txt
 
-Print the number PI to n decimal places (e.g. 10)
 
-    perl6 -e 'say pi.fmt("%.10f");'
-
-Print the number PI to 15 decimal places
-
-    perl6 -e 'say π'
-
-Print the number E to n decimal places (e.g. 10)
-
-    perl6 -e 'say e.fmt("%.10f");'
-
-Print the number E to 15 decimal places
-
-    perl6 -e 'say e'
+TIME AND DATE
+-------------
 
 Print UNIX time (seconds since Jan 1, 1970, 00:00:00 UTC)
 
@@ -304,17 +288,43 @@ Prepend timestamps to stdout (GMT, localtime)
     tail -f logfile | perl6 -MDateTime::TimeZone -ne 'say to-timezone("GMT",DateTime.now) ~ "\t$_"'
     tail -f logfile | perl6 -ne 'say DateTime.now ~ "\t$_"'
 
+
+CALCULATIONS
+------------
+
+Check if a number is a prime
+
+    perl6 -e 'say "7 is prime" if 7.Int.is-prime'
+
+Print the number pi to n decimal places (e.g. 10)
+
+    perl6 -e 'say pi.fmt("%.10f");'
+
+Print the number pi to 15 decimal places
+
+    perl6 -e 'say π'
+
+Print the number e to n decimal places (e.g. 10)
+
+    perl6 -e 'say e.fmt("%.10f");'
+
+Print the number e to 15 decimal places
+
+    perl6 -e 'say e'
+
 Calculate factorial of 5
 
     perl6 -e 'say [*] 1..5'
 
-Calculate greatest common divisor
+Calculate greatest common divisor (GCD) of a list of numbers
 
-    perl6 -e 'say [gcd] @list_of_numbers'
+    perl6 -e 'say [gcd] (60, 108, 144)'
 
-Calculate GCM of numbers 20 and 35 using Euclid's algorithm
+Calculate GCD of numbers 20 and 35 using Euclid's algorithm
 
-    perl6 -e 'say (20, 35, *%* ... 0)[*-2]'
+    perl6 -e 'say (20, 35, *%* ... 0)[*-2]' 
+
+In this implementation, `*%* ... 0` generates a sequence by appending the remainder of the last two terms, until the remainder is 0. Then `[*-2]` indexes the 2nd-to-last member of the list, the predecessor of `0`, because `*` in a subscript represents the right edge of the list.
 
 Calculate least common multiple (LCM) of 20 and 35
 
